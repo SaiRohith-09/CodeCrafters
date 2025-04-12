@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>స్మార్ట్ కృషి – పంట అంచనా</title>
+  <link rel="stylesheet" href="prediction.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header in Telugu -->
+  <header>
+    <h1 id="h6">స్మార్ట్ కృషి – పంట అంచనా</h1>
+    <button id="langToggle">తెలుగు</button>
+  </header>
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <h2>Prediction Results</h2>
+        <div class="subtitle">Based on your land details and current conditions</div>
+      </div>
+
+      <div class="score-container">
+        <label class="score" for="confidenceScore">Confidence Score : </label>
+        <input type="text" id="confidenceScore" readonly value="75%">
+      </div>
+      
+    </div>
+    
+    <div class="tips-box">
+    <label for="cropName">Recommended Crop:</label>
+    <input type="text" id="cropName" readonly>
+  </div>
+
+    <div class="grid">
+      <div class="card">
+        <label for="duration">🌱 Growth Duration</label>
+        <input type="text" id="duration" readonly>
+      </div>
+      <div class="card">
+        <label for="water">💧 Water Requirements</label>
+        <input type="text" id="water" readonly>
+      </div>
+      <div class="card">
+        <label for="yield">🌾 Expected Yield</label>
+        <input type="text" id="yield" readonly>
+      </div>
+      <div class="card">
+        <label for="market">💰 Market Value</label>
+        <input type="text" id="market" readonly>
+      </div>
+    </div>
+
+    <div class="fertilizer-box">
+      <label for="fertilizer">🧪 Recommended Fertilizers</label>
+      <input type="text" id="fertilizer" readonly>
+    </div>
+
+    <div class="tips-box">
+      <label for="soiltips">🌍 Soil Protection Tips</label>
+      <input type="text" id="soiltips" readonly>
+    </div>
+
+    <div class="tips-box">
+      <label for="croptips">🛡️ Crop Protection Tips</label>
+      <input type="text" id="croptips" readonly>
+    </div>
+
+    <button id="predictBtn" onclick="showRandomCropPrediction()">🔁 Give Prediction</button>
+  </div>
+
+  <!-- Footer in Telugu -->
+  <footer>
+    <p>&copy; 2025 స్మార్ట్ కృషి. అన్ని హక్కులు పరిరక్షించబడినవి.</p>
+  </footer>
+
+  <script src="cropsdata.js"></script>
+  <script>
+    const langStrings = {
+      en: {
+        title: "Prediction Results",
+        subtitle: "Based on your land details and current conditions",
+        confidence: "Confidence Score :",
+        recommendedCrop: "Recommended Crop:",
+        duration: "🌱 Growth Duration",
+        water: "💧 Water Requirements",
+        yield: "🌾 Expected Yield",
+        market: "💰 Market Value",
+        fertilizer: "🧪 Recommended Fertilizers",
+        soilTips: "🌍 Soil Protection Tips",
+        cropTips: "🛡️ Crop Protection Tips",
+        newPrediction: "🔁 Give Prediction"
+      },
+      te: {
+        title: "ఫలితాలు",
+        subtitle: "మీ భూమి వివరాలు మరియు ప్రస్తుత పరిస్థితుల ఆధారంగా",
+        confidence: "నమ్మక స్కోర్:",
+        recommendedCrop: "సిఫార్సు చేసిన పంట :",
+        duration: "🌱 పెరుగుదల వ్యవధి",
+        water: "💧 నీటి అవసరం",
+        yield: "🌾 అంచనా దిగుబడి",
+        market: "💰 మార్కెట్ విలువ",
+        fertilizer: "🧪 సిఫార్సు చేసిన ఎరువులు",
+        soilTips: "🌍 మట్టికి రక్షణ సూచనలు",
+        cropTips: "🛡️ పంట రక్షణ సూచనలు",
+        newPrediction: "🔁 కొత్త అంచనాను ప్రారంభించండి"
+      }
+    };
+
+    const soilTips = {
+      en: [
+        "Use compost, avoid over-irrigation.",
+        "Rotate crops to maintain soil fertility.",
+        "Test soil pH and add lime or sulfur as needed."
+      ],
+      te: [
+        "కంపోస్ట్ వాడండి, అధిక నీరుపోకండి.",
+        "మట్టిలో సారాన్ని నిలుపుకోవడానికి పంటల మార్పిడి చేయండి.",
+        "మట్టిలో పిహెచ్ స్థాయిని పరీక్షించి అవసరమైతే గంధకం లేదా సున్నం వాడండి."
+      ]
+    };
+
+    const cropTips = {
+      en: [
+        "Regularly check for pests and use organic sprays.",
+        "Avoid monocropping to reduce disease risk.",
+        "Use certified seeds and follow recommended spacing."
+      ],
+      te: [
+        "కీటకాలు కోసం తరచూ తనిఖీ చేయండి మరియు సేంద్రీయ స్ప్రేలు వాడండి.",
+        "ఒకే రకమైన పంటలను వరుసగా వేయడం నివారించండి.",
+        "ప్రామాణిక విత్తనాలు వాడండి మరియు సిఫార్సు చేసిన దూరం పాటించండి."
+      ]
+    };
+
+    let currentLang = "en";
+    let currentCrop = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const langToggleBtn = document.getElementById("langToggle");
+
+      langToggleBtn.addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "te" : "en";
+        updateLabelsLanguage(currentLang);
+        if (currentCrop) {
+          displayCrop(currentCrop);
+        }
+      });
+
+      updateLabelsLanguage(currentLang);
+    });
+
+    function updateLabelsLanguage(lang) {
+      const strings = langStrings[lang];
+
+      document.querySelector("h2").textContent = strings.title;
+      document.querySelector(".subtitle").textContent = strings.subtitle;
+      document.querySelector("label[for='confidenceScore']").textContent = strings.confidence;
+      document.querySelector("label[for='cropName']").textContent = strings.recommendedCrop;
+      document.querySelector("label[for='duration']").textContent = strings.duration;
+      document.querySelector("label[for='water']").textContent = strings.water;
+      document.querySelector("label[for='yield']").textContent = strings.yield;
+      document.querySelector("label[for='market']").textContent = strings.market;
+      document.querySelector("label[for='fertilizer']").textContent = strings.fertilizer;
+      document.querySelector("label[for='soiltips']").textContent = strings.soilTips;
+      document.querySelector("label[for='croptips']").textContent = strings.cropTips;
+
+      document.getElementById("predictBtn").textContent = strings.newPrediction;
+      document.getElementById("langToggle").textContent = lang === "en" ? "తెలుగు" : "English";
+    }
+
+    function showRandomCropPrediction() {
+      const crops = getPredictionData(); // cropsdata.js must define this
+      const randomIndex = Math.floor(Math.random() * crops.length);
+      currentCrop = crops[randomIndex];
+      displayCrop(currentCrop);
+    }
+
+    function displayCrop(crop) {
+      const lang = currentLang;
+      const randSoilTip = soilTips[lang][Math.floor(Math.random() * soilTips[lang].length)];
+      const randCropTip = cropTips[lang][Math.floor(Math.random() * cropTips[lang].length)];
+
+      document.getElementById("confidenceScore").value = crop.confidenceScore + "%";
+      document.getElementById("cropName").value = crop.name[lang];
+      document.getElementById("duration").value = crop.growthDuration[lang];
+      document.getElementById("water").value = crop.waterNeeds[lang];
+      document.getElementById("yield").value = crop.yield[lang];
+      document.getElementById("market").value = crop.marketValue[lang];
+      document.getElementById("fertilizer").value = crop.fertilizers[lang].join(", ");
+      document.getElementById("soiltips").value = randSoilTip;
+      document.getElementById("croptips").value = randCropTip;
+    }
+  </script>
+</body>
+</html>

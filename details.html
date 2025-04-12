@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>District Details</title>
+  <link rel="stylesheet" href="details.css">
+</head>
+<body>
+  <header>
+    <h1 id="page-title">District Details | జిల్లా వివరాలు</h1>
+    <div class="header-actions">
+      <div class="toggle-mode">
+        <label class="switch">
+          <input type="checkbox" id="mode-toggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="mode-label">Auto | స్వయంచాలిత</span>
+      </div>
+      <button id="language-toggle">English</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="district-info">
+      <h2 id="district-name">Selected District: </h2>
+
+      <div class="info-block">
+        <label for="rainfall">Rainfall (mm)</label>
+        <input type="text" id="rainfall" placeholder="Enter rainfall | వర్షపాతం నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="temperature">Temperature (°C) </label>
+        <input type="text" id="temperature" placeholder="Enter temperature | ఉష్ణోగ్రత నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="soil">Soil Type </label>
+        <input type="text" id="soil" placeholder="Enter soil type | మట్టి రకం నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="humidity">Humidity (%) </label>
+        <input type="text" id="humidity" placeholder="Enter humidity | ఆర్ద్రత నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="ph">PH Level</label>
+        <input type="text" id="ph" placeholder="Enter pH level | పిహెచ్ స్థాయి నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="water">Water Source</label>
+        <input type="text" id="water" placeholder="e.g., River, Borewell | ఉదా: నది, బోరువెల్">
+      </div>
+
+      <div class="info-block">
+        <label for="fertilizers">Fertilizers Used</label>
+        <input type="text" id="fertilizers" placeholder="Enter fertilizers | ఎరువులు నమోదు చేయండి">
+      </div>
+
+      <div class="info-block">
+        <label for="irrigation">Irrigation Type </label>
+        <input type="text" id="irrigation" placeholder="e.g., Drip | Drip లేదా Flood | ఫ్లడ్">
+      </div>
+      <a href="prediction.html">
+      <button id="predictButton">ఉత్తమ పంటను అంచనా వేయండి</button>
+    </a>
+    </section>
+
+    <section class="manual-entry" id="manual-entry">
+      <label id="manual-label">Manual District Name | జిల్లా పేరు (మెనువల్)</label>
+      <input type="text" id="manual-district" placeholder="Enter district name | జిల్లా పేరు నమోదు చేయండి">
+      <button id="load-button">Load | లోడ్ చేయండి</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <h4>🌾 స్మార్ట్ కృషి పోర్టల్</h4>
+      <p>
+        తెలంగాణ రైతులకు తెలివైన వ్యవసాయ సూచనలతో మద్దతు.
+      </p>
+      <p class="footer-credit">అన్ని హక్కులు కలిగినవి.</p>
+    </div>
+  </footer>
+
+  <script src="districtdata.js"></script>
+  <script src="details.js"></script>
+  <script src="cropData.js"></script>
+<script>
+  window.onload = function () {
+    const input = JSON.parse(localStorage.getItem("userInput"));
+    if (!input) return;
+
+    const matchedCrops = cropData.filter(crop => {
+      return (
+        input.rainfall >= crop.rainfall.min &&
+        input.rainfall <= crop.rainfall.max &&
+        input.temperature >= crop.temperature.min &&
+        input.temperature <= crop.temperature.max &&
+        crop.soil.includes(input.soil.toLowerCase()) &&
+        crop.pH.includes(parseFloat(input.ph)) &&
+        crop.humidity.includes(parseFloat(input.humidity))
+      );
+    });
+
+    const topTwoCrops = matchedCrops.slice(0, 2);
+
+    if (topTwoCrops.length === 0) {
+      document.getElementById("confidenceScore").textContent = "No matching crops found!";
+      return;
+    }
+
+    document.getElementById("confidenceScore").textContent = `Top ${topTwoCrops.length} crops found`;
+
+    // Crop 1
+    document.getElementById("cropName").value = topTwoCrops[0].name.en;
+    document.getElementById("duration").value = topTwoCrops[0].duration;
+    document.getElementById("water").value = topTwoCrops[0].waterNeeds;
+    document.getElementById("yield").value = topTwoCrops[0].yield;
+    document.getElementById("market").value = topTwoCrops[0].marketValue;
+    document.getElementById("fertilizers").value = topTwoCrops[0].recommendedFertilizers;
+
+    // Crop 2 (display in a new block)
+    document.getElementById("secondCropName").value = topTwoCrops[1]?.name?.en || "";
+    document.getElementById("secondDuration").value = topTwoCrops[1]?.duration || "";
+    document.getElementById("secondWater").value = topTwoCrops[1]?.waterNeeds || "";
+    document.getElementById("secondYield").value = topTwoCrops[1]?.yield || "";
+    document.getElementById("secondMarket").value = topTwoCrops[1]?.marketValue || "";
+    document.getElementById("secondFertilizers").value = topTwoCrops[1]?.recommendedFertilizers || "";
+  };
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Krishi Portal - Telangana Farmers</title>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header animate-fade">
+    <h1>🌾 Smart Krishi Portal | 🌾 స్మార్ట్ కృషి పోర్టల్</h1>
+    <button id="langToggle">తెలుగు | English</button>
+    <a href="login.html" class="signup-icon" title="Login">👤</a>
+
+  </header>
+
+  <!-- Hero Section -->
+  <main class="main">
+    <section class="hero-section animate-slide">
+      <img src="farmer.jpeg" alt="Farmer" class="hero-img animate-pop" />
+      <h2 id="welcomeText">Welcome, Farmer! | స్వాగతం రైతు గారు!</h2>
+      <p id="introText">Use smart suggestions to grow better crops and protect your soil. |  తెలివైన సూచనలతో మంచి పంటలు పండించండి, మట్టిని రక్షించండి.</p>
+      <button class="audio-btn" onclick="playWelcomeAudio()">🔊 వినండి</button>
+    </section>
+
+    <section class="why-section">
+      <h3 id="whyTitle">🌟 Why Use Smart Krishi? | 🌟స్మార్ట్ కృషి ఎందుకు ఉపయోగించాలి?</h3>
+      <p id="whyPara">
+        We understand that agriculture is more than just sowing seeds—it's your livelihood and legacy. | 
+        వ్యవసాయం మీ జీవనాధారం మరియు వారసత్వం. అందుకే ఈ పోర్టల్ రూపొందించాం.
+      </p>
+    </section>
+    
+
+    <!-- Features -->
+    <h3 id="featureTitle">📋 What You Can Do | మీరు చేయగలవి:</h3>
+    <ul id="featureList">
+      <li>✅ Get crop suggestions based on soil, climate, and location | మట్టి, వాతావరణం, ప్రాంతానికి అనుగుణంగా పంటల సిఫార్సులు</li>
+      <li>✅ Auto or Manual district selection | ఆటోమేటిక్ లేదా మాన్యువల్ జిల్లా ఎంపిక</li>
+      <li>✅ Telugu voice assistance for every section | ప్రతి విభాగానికి తెలుగు శబ్ద సహాయం</li>
+      <li>✅ Save notes, check calendars, and take quizzes | నోట్స్ సేవ్ చేయండి, కాలెండర్ చూసుకోండి, క్విజ్ ట్రై చేయండి</li>
+      <li>✅ Government scheme info in simple terms | ప్రభుత్వ పథకాలు సులభంగా అర్థమయ్యేలా</li>
+    </ul>
+
+    <!-- Farmer Quote -->
+    <section class="quote-section animate-slide">
+      <blockquote>
+        "Protecting our soil is our responsibility – choose the right crops and make smart decisions!" |
+        "మన భూమిని కాపాడుకోవడం మన బాధ్యత - సరైన పంటలతో తెలివైన నిర్ణయాలు తీసుకుందాం!"
+      </blockquote>
+      <p>- A Telangana Farmer | ఒక తెలంగాణ రైతు</p>
+    </section>
+
+    <!-- Start Button -->
+     <a href="district.html">
+    <section class="cta-section animate-pop">
+      <button id="startBtn" class="start-btn" onclick="startApp()">🚀 Start Your Smart Farming Journey | మీ స్మార్ట్ వ్యవసాయం ప్రయాణాన్ని ప్రారంభించండి</button>
+    </section>
+  </a>
+
+    <!-- Weather Info -->
+    <section class="weather-section animate-slide">
+      <p id="weatherTelugu" data-original="Today’s Temp: 32°C, No Rain Expected. | ఈ రోజు ఉష్ణోగ్రత: 32°C, వర్షం వచ్చే అవకాశం లేదు.">
+        Today’s Temp: 32°C, No Rain Expected. <!-- default shown -->
+      </p>      
+      <button class="audio-btn" onclick="playWeatherAudio()">🔊 వినండి</button>
+    </section>
+
+    <!-- Crop Calendar -->
+    <section class="calendar-section animate-fade">
+      <h3>📅 Crop Calendar | పంటల కాలెండర్</h3>
+      <div class="calendar-cards">
+        <div class="calendar-card">
+          <h4>🌾 Paddy | 🌾ధాన్యం</h4>
+          <p>Sowing Stage | విత్తనాలు వేయండి</p>
+        </div>
+        <div class="calendar-card">
+          <h4>🌽 Maize |🌽 మక్కజొన్న</h4>
+          <p>Growing Stage | వృద్ధి దశలో ఉంది</p>
+        </div>
+        <div class="calendar-card">
+          <h4>🥜 Groundnut | 🥜 వరుసలు</h4>
+          <p>Fertilizing Stage | ఎరువులు వేసే దశ</p>
+        </div>
+        <div class="calendar-card">
+          <h4>🌱 Cotton | పత్తి</h4>
+          <p>Harvesting Stage | కోత దశలో ఉంది</p>
+        </div>
+        <div class="calendar-card">
+          <h4>🍛 Red Gram | కందులు</h4>
+          <p>Pre-Sowing Preparation | మునుపటి ఏర్పాట్లు</p>
+        </div>
+      </div>
+      <button class="audio-btn" onclick="playCalendarAudio()">🔊 వినండి</button>
+    </section>
+    
+    <!-- Success Stories -->
+    <section class="success-section animate-fade">
+      <h3>🎯 Success Stories | విజయ కథలు</h3>
+      <div class="carousel">
+        <div class="carousel-item active">
+          <p>"Farmer's struggle led to great success!" | "రైతుల పోరాటం, తలపోసిన విజయం!"</p>
+          <span>- Venkatesham, Medak | వెంకటేశం గారు, మెదక్</span>
+        </div>
+        <div class="carousel-item">
+          <p>"My yield doubled using Smart Krishi." | "స్మార్ట్ కృషి వాడిన తర్వాత నా దిగుబడి రెట్టింపు అయింది."</p>
+          <span>- Lakshmamma, Khammam | లక్ష్మమ్మ, ఖమ్మం</span>
+        </div>
+        <div class="carousel-item">
+          <p>"This portal is a lifelong guide for me." | "ఈ పోర్టల్ నాకు ఎప్పటికీ ఉపయోగపడుతుంది."</p>
+          <span>- Maheshwar, Nizamabad | మహేశ్వర్, నిజామాబాద్</span>
+        </div>
+      </div>
+      <button class="audio-btn" onclick="playSuccessAudio()">🔊 కథ వినండి</button>
+    </section>
+
+    <!-- Telugu Audio Files -->
+    <audio id="welcomeAudio" src="welcome-te.mp3" preload="auto"></audio>
+    <audio id="weatherAudio" src="weather-te.mp3" preload="auto"></audio>
+    <audio id="calendarAudio" src="calendar-te.mp3" preload="auto"></audio>
+    <audio id="successAudio" src="success-te.mp3" preload="auto"></audio>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <h4>🌾 Smart Krishi Portal |🌾 స్మార్ట్ కృషి పోర్టల్</h4>
+      <p>
+        Empowering Telangana farmers with smart crop choices, soil protection, and timely guidance.|
+        తెలంగాణ రైతులకు తెలివైన వ్యవసాయ సూచనలతో మద్దతు.
+      </p>
+  
+      <div class="footer-links">
+        <a href="#"><p>📅 Crop Calendar | 📅 పంట కాలెండర్</p></a>
+        <a href="#"><p>📜 Govt Schemes | 📜 ప్రభుత్వ పథకాలు</p></a>
+        <a href="#"><p>📞 Contact Us | 📞సంప్రదించండి</p></a>
+        <a href="#"><p>❓ FAQs |❓ తరచుగా అడిగే ప్రశ్నలు</p></a>
+        <a href="#"><p>📝 Feedback |📝 అభిప్రాయం</p></a>
+      </div>
+
+      <div id="chatbotContainer">
+        <div id="chatIcon" onclick="toggleChat()">💬</div>
+      
+        <div id="chatBox" class="chat-box hidden">
+          <div class="chat-header">
+            <div>
+              <div class="chat-title">🤖 రైతు సహాయకుడు</div>
+              <div class="chat-status">ఆన్‌లైన్ | Online</div>
+            </div>
+            <button id="langToggle" onclick="toggleLanguage()">🌐 తెలుగు</button>
+          </div>
+      
+          <div id="chatHistory" class="chat-history"></div>
+      
+          <div class="chat-buttons">
+            <button onclick="handleOption('weather')">🌦️ వాతావరణం</button>
+            <button onclick="handleOption('crop')">🌾 పంటలు</button>
+            <button onclick="handleOption('soil')">🧪 మట్టి సమాచారం</button>
+            <button onclick="handleOption('schemes')">📜 ప్రభుత్వ పథకాలు</button>
+          </div>
+        </div>
+      </div>
+  
+      
+      <p class="footer-credit">© 2025 Smart Krishi Team. All rights reserved. | అన్ని హక్కులు కలిగినవి.</p>
+    </div>
+  </footer>
+  
+  <!-- Telugu Audio Files -->
+
+  <!-- Script -->
+  <script src="index.js"></script>
+</body>
+</html>

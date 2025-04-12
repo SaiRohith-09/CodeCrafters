@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(120deg, #f3eac2, #c9d8a2, #a1c181);
+    }
+
+    .container {
+      background: #fffdf5;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(130, 100, 50, 0.2);
+      text-align: center;
+      width: 400px;
+      border: 2px solid #d4c190;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .logo {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: #6d5a3e;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #5a3e1b;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group label {
+      color: #5c4a1c;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+
+    .input-icon {
+      position: absolute;
+      top: 38px;
+      left: 10px;
+      font-size: 18px;
+      color: #a0936d;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 35px; /* Adjusted padding */
+      border: 1px solid #c9b57e;
+      border-radius: 8px;
+      background: #fdfaf3;
+      color: #3e3e3e;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .strength-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      height: 8px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: all 0.4s ease;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #6fa64d, #3f7d20);
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      width: 100%;
+      box-shadow: 0px 0px 10px rgba(100, 140, 60, 0.6);
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #3f7d20, #6fa64d);
+      transform: scale(1.05);
+      box-shadow: 0px 0px 20px rgba(80, 120, 50, 0.8);
+    }
+
+    p {
+      color: #5a3e1b;
+      margin-top: 15px;
+    }
+
+    p a {
+      color: #b08a33;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease-in-out;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+      color: #e0b240;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #languageToggle {
+      font-size: 14px; /* smaller font size */
+      padding: 8px 15px; /* smaller padding */
+      margin-top: 10px; /* space from the signup button */
+      background: linear-gradient(45deg, #6fa64d, #3f7d20); /* consistent style with signup button */
+      color: #fff;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      width: 100%; /* make it the same width as the signup button */
+      box-shadow: 0px 0px 8px rgba(100, 140, 60, 0.6);
+    }
+
+    #languageToggle:hover {
+      background: linear-gradient(45deg, #3f7d20, #6fa64d);
+      transform: scale(1.05);
+      box-shadow: 0px 0px 15px rgba(80, 120, 50, 0.8);
+    }
+   
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🌱 FarmConnect</div>
+    <div class="tagline">Grow together. Connect globally.</div>
+
+    <form class="signup-form" id="signupForm">
+      <h2>Sign Up</h2>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <span class="input-icon">👩‍🌾</span>
+        <input type="text" id="username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <span class="input-icon">📧</span>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <span class="input-icon">🔒</span>
+        <input type="password" id="password" placeholder=" Enter your password" required>
+      </div>
+
+      <button type="submit" id="signupButton">Sign Up</button>
+      <button id="languageToggle">తెలుగులో చూడండి</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("signupForm");
+      const usernameInput = document.getElementById("username");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Get values from inputs
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Check if all fields are filled
+        if (!username || !email || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        // Validate email format
+        if (!validateEmail(email)) {
+          alert("Please enter a valid email address");
+          return;
+        }
+
+        // Save data to localStorage (optional step)
+        localStorage.setItem("signupUsername", username);
+        localStorage.setItem("signupEmail", email);
+        localStorage.setItem("signupPassword", password);
+
+        // Redirect to login page after successful signup
+        window.location.href = "login.html";  // Redirect to login page
+      });
+
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+    });
+  </script>
+</body>
+</html>
